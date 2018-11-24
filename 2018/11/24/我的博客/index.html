@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="验证码识别,python,cnn,tensorflow," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="1.你好2,世界">
+<meta name="description" content="被执行人官网验证码识别  验证码来源于中国失信被执行人查询官网，仅供测试使用，如果需要验证码进行训练，可以与我私下联系 识别率达到96%，源码参考自github   api 接口源码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859">
+<meta name="keywords" content="验证码识别,python,cnn,tensorflow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我的博客">
 <meta property="og:url" content="http://yoursite.com/2018/11/24/我的博客/index.html">
 <meta property="og:site_name" content="瓜皮的个人博客">
-<meta property="og:description" content="1.你好2,世界">
+<meta property="og:description" content="被执行人官网验证码识别  验证码来源于中国失信被执行人查询官网，仅供测试使用，如果需要验证码进行训练，可以与我私下联系 识别率达到96%，源码参考自github   api 接口源码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-24T07:37:50.525Z">
+<meta property="og:updated_time" content="2018-11-24T08:48:15.671Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我的博客">
-<meta name="twitter:description" content="1.你好2,世界">
+<meta name="twitter:description" content="被执行人官网验证码识别  验证码来源于中国失信被执行人查询官网，仅供测试使用，如果需要验证码进行训练，可以与我私下联系 识别率达到96%，源码参考自github   api 接口源码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859">
 
 
 
@@ -299,9 +300,13 @@
       
 
       
-        <blockquote>
-<p>1.你好<br>2,世界</p>
+        <h3 id="被执行人官网验证码识别"><a href="#被执行人官网验证码识别" class="headerlink" title="被执行人官网验证码识别"></a>被执行人官网验证码识别</h3><hr>
+<blockquote>
+<p>验证码来源于中国失信被执行人查询官网，仅供测试使用，如果需要验证码进行训练，可以与我私下联系</p>
+<p>识别率达到96%，源码参考自<a href="https://github.com/nickliqian/cnn_captcha" target="_blank" rel="noopener">github</a></p>
 </blockquote>
+<hr>
+<h4 id="api-接口源码"><a href="#api-接口源码" class="headerlink" title="api 接口源码"></a>api 接口源码</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">构建flask接口服务</span></span><br><span class="line"><span class="string">接收 files=&#123;'image_file': ('captcha.jpg', BytesIO(bytes), 'application')&#125; 参数识别验证码</span></span><br><span class="line"><span class="string">需要配置参数：</span></span><br><span class="line"><span class="string">    image_height = 40</span></span><br><span class="line"><span class="string">    image_width = 80</span></span><br><span class="line"><span class="string">    max_captcha = 4</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> recognition_object <span class="keyword">import</span> Recognizer</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, jsonify, Response</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> sample <span class="keyword">import</span> sample_conf</span><br><span class="line"></span><br><span class="line">os.environ[<span class="string">"CUDA_DEVICE_ORDER"</span>] = <span class="string">"PCI_BUS_ID"</span></span><br><span class="line">os.environ[<span class="string">"CUDA_VISIBLE_DEVICES"</span>] = <span class="string">"-1"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置参数</span></span><br><span class="line">image_height = sample_conf[<span class="string">"image_height"</span>]</span><br><span class="line">image_width = sample_conf[<span class="string">"image_width"</span>]</span><br><span class="line">max_captcha = sample_conf[<span class="string">"max_captcha"</span>]</span><br><span class="line">api_image_dir = sample_conf[<span class="string">"api_image_dir"</span>]</span><br><span class="line">model_save_dir = sample_conf[<span class="string">"model_save_dir"</span>]</span><br><span class="line">image_suffix = sample_conf[<span class="string">"image_suffix"</span>]  <span class="comment"># 文件后缀</span></span><br><span class="line">char_set = sample_conf[<span class="string">"char_set"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Flask对象</span></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">basedir = os.path.abspath(os.path.dirname(__file__))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成识别对象，需要配置参数</span></span><br><span class="line">R = Recognizer(image_height, image_width, max_captcha, char_set, model_save_dir)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">response_headers</span><span class="params">(content)</span>:</span></span><br><span class="line">    resp = Response(content)</span><br><span class="line">    resp.headers[<span class="string">'Access-Control-Allow-Origin'</span>] = <span class="string">'*'</span></span><br><span class="line">    <span class="keyword">return</span> resp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/b', methods=['POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">up_image</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span> <span class="keyword">and</span> request.files.get(<span class="string">'image_file'</span>):</span><br><span class="line">        timec = str(time.time()).replace(<span class="string">"."</span>, <span class="string">""</span>)</span><br><span class="line">        file = request.files.get(<span class="string">'image_file'</span>)</span><br><span class="line">        img = file.read()</span><br><span class="line">        img = BytesIO(img)</span><br><span class="line">        img = Image.open(img, mode=<span class="string">"r"</span>)</span><br><span class="line">        <span class="comment"># username = request.form.get("name")</span></span><br><span class="line">        print(<span class="string">"接收图片尺寸: &#123;&#125;"</span>.format(img.size))</span><br><span class="line">        value = R.rec_image(img)</span><br><span class="line">        print(<span class="string">"识别结果: &#123;&#125;"</span>.format(value))</span><br><span class="line">        <span class="comment"># 保存图片</span></span><br><span class="line">        print(<span class="string">"保存图片： &#123;&#125;&#123;&#125;_&#123;&#125;.&#123;&#125;"</span>.format(api_image_dir, value, timec, image_suffix))</span><br><span class="line">        file_name = <span class="string">"&#123;&#125;_&#123;&#125;.&#123;&#125;"</span>.format(value, timec, image_suffix)</span><br><span class="line">        file_path = os.path.join(api_image_dir + file_name)</span><br><span class="line">        img.save(file_path)</span><br><span class="line">        result = &#123;</span><br><span class="line">            <span class="string">'time'</span>: timec,</span><br><span class="line">            <span class="string">'value'</span>: value,</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> jsonify(result)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        content = json.dumps(&#123;<span class="string">"error_code"</span>: <span class="string">"1001"</span>&#125;)</span><br><span class="line">        resp = response_headers(content)</span><br><span class="line">        <span class="keyword">return</span> resp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run(debug=<span class="keyword">True</span>, port=<span class="number">6000</span>)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -316,6 +321,18 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/验证码识别/" rel="tag"># 验证码识别</a>
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/cnn/" rel="tag"># cnn</a>
+          
+            <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
+          
+        </div>
       
 
       
@@ -386,8 +403,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -402,7 +428,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -410,6 +436,15 @@
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
             
 
           </nav>
@@ -429,6 +464,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#被执行人官网验证码识别"><span class="nav-number">1.</span> <span class="nav-text">被执行人官网验证码识别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#api-接口源码"><span class="nav-number">1.1.</span> <span class="nav-text">api 接口源码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

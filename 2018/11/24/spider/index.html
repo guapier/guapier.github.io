@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="hexo,blog,next," />
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="瓜皮的个人博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="Hexo安装教程很多，我这里尽可能的讲的细一些，把容易踩坑的地方以及后期多电脑同步所遇到的问题列出来，以便给自己及大家参考。本文主要讲解安装部署后源文件同步问题，当然，你可以采用网盘方式进行同步，但是这种方式不够程序员，也不能进行版本控制，如果你是一个多系统（windows、mac、linux）爱好者，那我建议你还是和我一样，采用git的方式进行源文件管理。使用github和Hexo，在几秒内，即">
+<meta name="keywords" content="hexo,blog,next">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客的安装部署及多电脑同步">
+<meta property="og:url" content="http://yoursite.com/2018/11/24/spider/index.html">
 <meta property="og:site_name" content="瓜皮的个人博客">
+<meta property="og:description" content="Hexo安装教程很多，我这里尽可能的讲的细一些，把容易踩坑的地方以及后期多电脑同步所遇到的问题列出来，以便给自己及大家参考。本文主要讲解安装部署后源文件同步问题，当然，你可以采用网盘方式进行同步，但是这种方式不够程序员，也不能进行版本控制，如果你是一个多系统（windows、mac、linux）爱好者，那我建议你还是和我一样，采用git的方式进行源文件管理。使用github和Hexo，在几秒内，即">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-24T08:55:12.139Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="瓜皮的个人博客">
+<meta name="twitter:title" content="Hexo博客的安装部署及多电脑同步">
+<meta name="twitter:description" content="Hexo安装教程很多，我这里尽可能的讲的细一些，把容易踩坑的地方以及后期多电脑同步所遇到的问题列出来，以便给自己及大家参考。本文主要讲解安装部署后源文件同步问题，当然，你可以采用网盘方式进行同步，但是这种方式不够程序员，也不能进行版本控制，如果你是一个多系统（windows、mac、linux）爱好者，那我建议你还是和我一样，采用git的方式进行源文件管理。使用github和Hexo，在几秒内，即">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/11/24/spider/"/>
 
 
 
 
 
-  <title>瓜皮的个人博客</title>
+  <title>Hexo博客的安装部署及多电脑同步 | 瓜皮的个人博客</title>
   
 
 
@@ -140,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +218,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/24/spider/" itemprop="url">Hexo博客的安装部署及多电脑同步</a></h1>
+          <h1 class="post-title" itemprop="name headline">Hexo博客的安装部署及多电脑同步</h1>
         
 
         <div class="post-meta">
@@ -298,9 +300,7 @@
       
 
       
-        
-          
-            <p>Hexo安装教程很多，我这里尽可能的讲的细一些，把容易踩坑的地方以及后期多电脑同步所遇到的问题列出来，以便给自己及大家参考。本文主要讲解安装部署后源文件同步问题，当然，你可以采用网盘方式进行同步，但是这种方式不够程序员，也不能进行版本控制，如果你是一个多系统（windows、mac、linux）爱好者，那我建议你还是和我一样，采用git的方式进行源文件管理。使用github和Hexo，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+        <p>Hexo安装教程很多，我这里尽可能的讲的细一些，把容易踩坑的地方以及后期多电脑同步所遇到的问题列出来，以便给自己及大家参考。本文主要讲解安装部署后源文件同步问题，当然，你可以采用网盘方式进行同步，但是这种方式不够程序员，也不能进行版本控制，如果你是一个多系统（windows、mac、linux）爱好者，那我建议你还是和我一样，采用git的方式进行源文件管理。使用github和Hexo，在几秒内，即可利用靓丽的主题生成静态网页。</p>
 <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="什么是hexo"><a href="#什么是hexo" class="headerlink" title="什么是hexo"></a>什么是hexo</h2><p>首先，你能找到这篇文章，证明你已经知道什么是<a href="https://hexo.io/" target="_blank" rel="noopener">hexo</a>了，官方对这块讲解非常详细，我不做过多赘述，但是关于优缺点这块，还是有几个点要给大家说下。</p>
 <blockquote>
 <p>优点： 基于node.js的高效博客框架，能让上百个页面在几秒内完成渲染 支持markdown撰写博客，极其轻量级，这很程序员 海量的主题，插件支持 很装逼，怪不得得到不少程序员的青睐 支持github pages，不用自己建服务器 可离线撰写文档，有网后上传 缺点： 麻烦，博客的源文件需要保存起来，不好同步（本文后面将解决这个问题） 学习成本高，没接触过markdown的同学很难上手 同上，没接触过开发的同学很难上手 写博客需要搭建环境，换电脑后浪费时间</p>
@@ -402,8 +402,6 @@
 <p>好了，文章暂时就先结束了，不足之处请见谅。转载请注明原文出处，谢谢！</p>
 <p>转载自<a href="https://cloud.tencent.com/developer/article/1046404" target="_blank" rel="noopener">hexo安装及多台电脑同步</a></p>
 
-          
-        
       
     </div>
     
@@ -418,268 +416,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="franky">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="瓜皮的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/24/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T14:45:20+08:00">
-                2018-11-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/hexo-blog-next/" rel="tag"># hexo,blog,next</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
       
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/我的博客/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="franky">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="瓜皮的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/24/我的博客/" itemprop="url">我的博客</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T13:29:01+08:00">
-                2018-11-24
-              </time>
+              <a href="/2018/11/24/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h3 id="被执行人官网验证码识别"><a href="#被执行人官网验证码识别" class="headerlink" title="被执行人官网验证码识别"></a>被执行人官网验证码识别</h3><hr>
-<blockquote>
-<p>验证码来源于中国失信被执行人查询官网，仅供测试使用，如果需要验证码进行训练，可以与我私下联系</p>
-<p>识别率达到96%，源码参考自<a href="https://github.com/nickliqian/cnn_captcha" target="_blank" rel="noopener">github</a></p>
-</blockquote>
-<hr>
-<h4 id="api-接口源码"><a href="#api-接口源码" class="headerlink" title="api 接口源码"></a>api 接口源码</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">构建flask接口服务</span></span><br><span class="line"><span class="string">接收 files=&#123;'image_file': ('captcha.jpg', BytesIO(bytes), 'application')&#125; 参数识别验证码</span></span><br><span class="line"><span class="string">需要配置参数：</span></span><br><span class="line"><span class="string">    image_height = 40</span></span><br><span class="line"><span class="string">    image_width = 80</span></span><br><span class="line"><span class="string">    max_captcha = 4</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> recognition_object <span class="keyword">import</span> Recognizer</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, jsonify, Response</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> sample <span class="keyword">import</span> sample_conf</span><br><span class="line"></span><br><span class="line">os.environ[<span class="string">"CUDA_DEVICE_ORDER"</span>] = <span class="string">"PCI_BUS_ID"</span></span><br><span class="line">os.environ[<span class="string">"CUDA_VISIBLE_DEVICES"</span>] = <span class="string">"-1"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置参数</span></span><br><span class="line">image_height = sample_conf[<span class="string">"image_height"</span>]</span><br><span class="line">image_width = sample_conf[<span class="string">"image_width"</span>]</span><br><span class="line">max_captcha = sample_conf[<span class="string">"max_captcha"</span>]</span><br><span class="line">api_image_dir = sample_conf[<span class="string">"api_image_dir"</span>]</span><br><span class="line">model_save_dir = sample_conf[<span class="string">"model_save_dir"</span>]</span><br><span class="line">image_suffix = sample_conf[<span class="string">"image_suffix"</span>]  <span class="comment"># 文件后缀</span></span><br><span class="line">char_set = sample_conf[<span class="string">"char_set"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Flask对象</span></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">basedir = os.path.abspath(os.path.dirname(__file__))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成识别对象，需要配置参数</span></span><br><span class="line">R = Recognizer(image_height, image_width, max_captcha, char_set, model_save_dir)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">response_headers</span><span class="params">(content)</span>:</span></span><br><span class="line">    resp = Response(content)</span><br><span class="line">    resp.headers[<span class="string">'Access-Control-Allow-Origin'</span>] = <span class="string">'*'</span></span><br><span class="line">    <span class="keyword">return</span> resp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/b', methods=['POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">up_image</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span> <span class="keyword">and</span> request.files.get(<span class="string">'image_file'</span>):</span><br><span class="line">        timec = str(time.time()).replace(<span class="string">"."</span>, <span class="string">""</span>)</span><br><span class="line">        file = request.files.get(<span class="string">'image_file'</span>)</span><br><span class="line">        img = file.read()</span><br><span class="line">        img = BytesIO(img)</span><br><span class="line">        img = Image.open(img, mode=<span class="string">"r"</span>)</span><br><span class="line">        <span class="comment"># username = request.form.get("name")</span></span><br><span class="line">        print(<span class="string">"接收图片尺寸: &#123;&#125;"</span>.format(img.size))</span><br><span class="line">        value = R.rec_image(img)</span><br><span class="line">        print(<span class="string">"识别结果: &#123;&#125;"</span>.format(value))</span><br><span class="line">        <span class="comment"># 保存图片</span></span><br><span class="line">        print(<span class="string">"保存图片： &#123;&#125;&#123;&#125;_&#123;&#125;.&#123;&#125;"</span>.format(api_image_dir, value, timec, image_suffix))</span><br><span class="line">        file_name = <span class="string">"&#123;&#125;_&#123;&#125;.&#123;&#125;"</span>.format(value, timec, image_suffix)</span><br><span class="line">        file_path = os.path.join(api_image_dir + file_name)</span><br><span class="line">        img.save(file_path)</span><br><span class="line">        result = &#123;</span><br><span class="line">            <span class="string">'time'</span>: timec,</span><br><span class="line">            <span class="string">'value'</span>: value,</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> jsonify(result)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        content = json.dumps(&#123;<span class="string">"error_code"</span>: <span class="string">"1001"</span>&#125;)</span><br><span class="line">        resp = response_headers(content)</span><br><span class="line">        <span class="keyword">return</span> resp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run(debug=<span class="keyword">True</span>, port=<span class="number">6000</span>)</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -689,10 +455,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -700,6 +467,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -720,8 +491,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -772,6 +552,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是hexo"><span class="nav-number">1.1.</span> <span class="nav-text">什么是hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何安装hexo"><span class="nav-number">1.2.</span> <span class="nav-text">如何安装hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js及git的安装"><span class="nav-number">1.2.1.</span> <span class="nav-text">Node.js及git的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#windows中Node-js及Git的安装"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">windows中Node.js及Git的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Node-js"><span class="nav-number">1.2.1.1.1.</span> <span class="nav-text">Node.js</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Git"><span class="nav-number">1.2.1.1.2.</span> <span class="nav-text">Git</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mac中Node-js及Git的安装"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">Mac中Node.js及Git的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Node-js-1"><span class="nav-number">1.2.1.2.1.</span> <span class="nav-text">Node.js</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Git-1"><span class="nav-number">1.2.1.2.2.</span> <span class="nav-text">Git</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ubuntu中Node-js及Git的安装"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">Ubuntu中Node.js及Git的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Node-js-2"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">Node.js</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Git-2"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">Git</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo的安装"><span class="nav-number">1.2.2.</span> <span class="nav-text">Hexo的安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署"><span class="nav-number">2.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何建站"><span class="nav-number">2.1.</span> <span class="nav-text">如何建站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何写文章"><span class="nav-number">2.2.</span> <span class="nav-text">如何写文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何部署"><span class="nav-number">2.3.</span> <span class="nav-text">如何部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何部署在自己的服务器上"><span class="nav-number">2.3.1.</span> <span class="nav-text">如何部署在自己的服务器上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何部署在Github-Pages上"><span class="nav-number">2.3.2.</span> <span class="nav-text">如何部署在Github Pages上</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建Github仓库"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">创建Github仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成ssh密钥文件"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">生成ssh密钥文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#部署网站"><span class="nav-number">2.3.2.3.</span> <span class="nav-text">部署网站</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后话"><span class="nav-number">2.4.</span> <span class="nav-text">后话</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同步"><span class="nav-number">3.</span> <span class="nav-text">同步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何上传博客工程到Github"><span class="nav-number">3.1.</span> <span class="nav-text">如何上传博客工程到Github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何从另一台电脑下载博客工程"><span class="nav-number">3.2.</span> <span class="nav-text">如何从另一台电脑下载博客工程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#撰写完后如何再次同步"><span class="nav-number">3.3.</span> <span class="nav-text">撰写完后如何再次同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -905,6 +701,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
