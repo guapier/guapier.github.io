@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="记录和管理 API 日志本节核心内容 Go 日志包数量众多，功能不同、性能不同，本小册介绍一个笔者认为比较好的日志库，并给出原因 介绍如何初始化日志包 介绍如何调用日志包 介绍如何转存（rotate）日志文件   本小节源码下载路径：demo03 可先下载源码到本地，结合源码理解后续内容，边学边练。 本小节的代码是基于 demo02 来开发的。  &amp;lt; !–more–&amp;gt; 日志包介绍api">
+<meta property="og:type" content="article">
+<meta property="og:title" content="瓜皮的个人博客">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/demo/index.html">
+<meta property="og:site_name" content="瓜皮的个人博客">
+<meta property="og:description" content="记录和管理 API 日志本节核心内容 Go 日志包数量众多，功能不同、性能不同，本小册介绍一个笔者认为比较好的日志库，并给出原因 介绍如何初始化日志包 介绍如何调用日志包 介绍如何转存（rotate）日志文件   本小节源码下载路径：demo03 可先下载源码到本地，结合源码理解后续内容，边学边练。 本小节的代码是基于 demo02 来开发的。  &amp;lt; !–more–&amp;gt; 日志包介绍api">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/31/163b436f7649e2e7?w=800&h=337&f=png&s=29514">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/7/163d94888f441a2e?w=1738&h=281&f=png&s=38252">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/5/31/163b4bc062cc4033?w=1336&h=266&f=png&s=12866">
+<meta property="og:updated_time" content="2019-02-14T03:12:59.454Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="瓜皮的个人博客">
+<meta name="twitter:description" content="记录和管理 API 日志本节核心内容 Go 日志包数量众多，功能不同、性能不同，本小册介绍一个笔者认为比较好的日志库，并给出原因 介绍如何初始化日志包 介绍如何调用日志包 介绍如何转存（rotate）日志文件   本小节源码下载路径：demo03 可先下载源码到本地，结合源码理解后续内容，边学边练。 本小节的代码是基于 demo02 来开发的。  &amp;lt; !–more–&amp;gt; 日志包介绍api">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/5/31/163b436f7649e2e7?w=800&h=337&f=png&s=29514">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/demo/"/>
+
+
+
+
+
+  <title> | 瓜皮的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">瓜皮的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/demo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="franky">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="瓜皮的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T11:12:59+08:00">
+                2019-02-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="记录和管理-API-日志"><a href="#记录和管理-API-日志" class="headerlink" title="记录和管理 API 日志"></a>记录和管理 API 日志</h1><h2 id="本节核心内容"><a href="#本节核心内容" class="headerlink" title="本节核心内容"></a>本节核心内容</h2><ul>
+<li>Go 日志包数量众多，功能不同、性能不同，本小册介绍一个笔者认为比较好的日志库，并给出原因</li>
+<li>介绍如何初始化日志包</li>
+<li>介绍如何调用日志包</li>
+<li>介绍如何转存（rotate）日志文件</li>
+</ul>
+<blockquote>
+<p>本小节源码下载路径：<a href="https://github.com/lexkong/apiserver_demos/tree/master/demo03" target="_blank" rel="noopener">demo03</a></p>
+<p>可先下载源码到本地，结合源码理解后续内容，边学边练。</p>
+<p>本小节的代码是基于 <a href="https://github.com/lexkong/apiserver_demos/tree/master/demo02" target="_blank" rel="noopener">demo02</a> 来开发的。</p>
+</blockquote>
+<p>&lt; !–more–&gt;</p>
+<h2 id="日志包介绍"><a href="#日志包介绍" class="headerlink" title="日志包介绍"></a>日志包介绍</h2><p>apiserver 所采用的日志包 <a href="https://github.com/lexkong/log" target="_blank" rel="noopener">lexkong/log</a> 是笔者根据开发经验，并调研 GitHub 上的 开源log 包后封装的一个日志包，也是笔者所在项目使用的日志包。它参考华为 <a href="https://github.com/ServiceComb/paas-lager" target="_blank" rel="noopener">paas-lager</a>，做了一些便捷性的改动，功能完全一样，只不过更为便捷。相较于 Go 的其他日志包，该日志包有如下特点：</p>
+<ul>
+<li>支持日志输出流配置，可以输出到 stdout 或 file，也可以同时输出到 stdout 和 file</li>
+<li>支持输出为 JSON 或 plaintext 格式</li>
+<li>支持彩色输出</li>
+<li>支持 log rotate 功能</li>
+<li>高性能</li>
+</ul>
+<h2 id="初始化日志包"><a href="#初始化日志包" class="headerlink" title="初始化日志包"></a>初始化日志包</h2><p><strong>在 <code>conf/config.yaml</code> 中添加 log 配置</strong></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/31/163b436f7649e2e7?w=800&amp;h=337&amp;f=png&amp;s=29514" alt=""></p>
+<p><strong>在 <code>config/config.go</code> 中添加日志初始化代码</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> config</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    ....</span><br><span class="line">    <span class="string">"github.com/lexkong/log"</span></span><br><span class="line">    ....</span><br><span class="line">)</span><br><span class="line">....</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Init</span><span class="params">(cfg <span class="keyword">string</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    ....</span><br><span class="line">    <span class="comment">// 初始化配置文件</span></span><br><span class="line">    <span class="keyword">if</span> err := c.initConfig(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化日志包</span></span><br><span class="line">    c.initLog()</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Config)</span> <span class="title">initConfig</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Config)</span> <span class="title">initLog</span><span class="params">()</span></span> &#123;</span><br><span class="line">    passLagerCfg := log.PassLagerCfg &#123;</span><br><span class="line">        Writers:        viper.GetString(<span class="string">"log.writers"</span>),</span><br><span class="line">        LoggerLevel:    viper.GetString(<span class="string">"log.logger_level"</span>),</span><br><span class="line">        LoggerFile:     viper.GetString(<span class="string">"log.logger_file"</span>),</span><br><span class="line">        LogFormatText:  viper.GetBool(<span class="string">"log.log_format_text"</span>),</span><br><span class="line">        RollingPolicy:  viper.GetString(<span class="string">"log.rollingPolicy"</span>),</span><br><span class="line">        LogRotateDate:  viper.GetInt(<span class="string">"log.log_rotate_date"</span>),</span><br><span class="line">        LogRotateSize:  viper.GetInt(<span class="string">"log.log_rotate_size"</span>),</span><br><span class="line">        LogBackupCount: viper.GetInt(<span class="string">"log.log_backup_count"</span>),</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    log.InitWithConfig(&amp;passLagerCfg)</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="comment">// 监控配置文件变化并热加载程序</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Config)</span> <span class="title">watchConfig</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里要注意，日志初始化函数 <code>c.initLog()</code> 要放在配置初始化函数 <code>c.initConfig()</code> 之后，因为日志初始化函数要读取日志相关的配置。<code>func (c *Config) initLog()</code> 是日志初始化函数，会设置日志包的各项参数，参数为：</p>
+<ul>
+<li><code>writers</code>：输出位置，有两个可选项 —— file 和 stdout。选择 file 会将日志记录到 <code>logger_file</code> 指定的日志文件中，选择 stdout 会将日志输出到标准输出，当然也可以两者同时选择</li>
+<li><code>logger_level</code>：日志级别，DEBUG、INFO、WARN、ERROR、FATAL</li>
+<li><code>logger_file</code>：日志文件</li>
+<li><code>log_format_text</code>：日志的输出格式，JSON 或者 plaintext，<code>true</code> 会输出成非 JSON 格式，<code>false</code> 会输出成 JSON 格式</li>
+<li><code>rollingPolicy</code>：rotate 依据，可选的有 daily 和 size。如果选 daily 则根据天进行转存，如果是 size 则根据大小进行转存</li>
+<li><code>log_rotate_date</code>：rotate 转存时间，配 合<code>rollingPolicy: daily</code> 使用</li>
+<li><code>log_rotate_size</code>：rotate 转存大小，配合 <code>rollingPolicy: size</code> 使用</li>
+<li><code>log_backup_count</code>：当日志文件达到转存标准时，log 系统会将该日志文件进行压缩备份，这里指定了备份文件的最大个数</li>
+</ul>
+<h2 id="调用日志包"><a href="#调用日志包" class="headerlink" title="调用日志包"></a>调用日志包</h2><p>日志初始化好了，将 <a href="https://github.com/lexkong/apiserver_demos/tree/master/demo02" target="_blank" rel="noopener">demo02</a> 中的 log 用 <a href="https://github.com/lexkong/log" target="_blank" rel="noopener">lexkong/log</a> 包来替换。替换前（这里 grep 出了需要替换的行，读者可自行确认替换后的效果）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ grep log * -R</span><br><span class="line">config/config.go:	&quot;log&quot;</span><br><span class="line">config/config.go:		log.Printf(&quot;Config file changed: %s&quot;, e.Name)</span><br><span class="line">main.go:	&quot;log&quot;</span><br><span class="line">main.go:			log.Fatal(&quot;The router has no response, or it might took too long to start up.&quot;, err)</span><br><span class="line">main.go:		log.Print(&quot;The router has been deployed successfully.&quot;)</span><br><span class="line">main.go:	log.Printf(&quot;Start to listening the incoming requests on http address: %s&quot;, viper.GetString(&quot;addr&quot;))</span><br><span class="line">main.go:	log.Printf(http.ListenAndServe(viper.GetString(&quot;addr&quot;), g).Error())</span><br><span class="line">main.go:		log.Print(&quot;Waiting for the router, retry in 1 second.&quot;)</span><br></pre></td></tr></table></figure>
+<p>替换后的源码文件见 <a href="https://github.com/lexkong/apiserver_demos/tree/master/demo03" target="_blank" rel="noopener">demo03</a>。</p>
+<h2 id="编译并运行"><a href="#编译并运行" class="headerlink" title="编译并运行"></a>编译并运行</h2><ol>
+<li>下载 apiserver_demos 源码包（如前面已经下载过，请忽略此步骤）</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/lexkong/apiserver_demos</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>将 <code>apiserver_demos/demo03</code>复制为 <code>$GOPATH/src/apiserver</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp -a apiserver_demos/demo03/ $GOPATH/src/apiserver</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>在 apiserver 目录下编译源码</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cd $GOPATH/src/apiserver</span><br><span class="line">$ gofmt -w .</span><br><span class="line">$ go tool vet .</span><br><span class="line">$ go build -v .</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>启动 apiserver</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./apiserver</span><br></pre></td></tr></table></figure>
+<p>启动后，可以看到 apiserver 有 JSON 格式的日志输出：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/7/163d94888f441a2e?w=1738&amp;h=281&amp;f=png&amp;s=38252" alt=""></p>
+<h2 id="管理日志文件"><a href="#管理日志文件" class="headerlink" title="管理日志文件"></a>管理日志文件</h2><p>这里将日志转存策略设置为 <code>size</code>，转存大小设置为 1 MB</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rollingPolicy:</span> <span class="string">size</span></span><br><span class="line"><span class="attr">log_rotate_size:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>并在 <code>main</code> 函数中加入测试代码：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/5/31/163b4bc062cc4033?w=1336&amp;h=266&amp;f=png&amp;s=12866" alt=""></p>
+<p>启动 apiserver 后发现，在当前目录下创建了 log/apiserver.log 日志文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls log/</span><br><span class="line">apiserver.log</span><br></pre></td></tr></table></figure>
+<p>程序运行一段时间后，发现又创建了 zip 文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ls log/</span><br><span class="line">apiserver.log  apiserver.log.20180531134509631.zip</span><br></pre></td></tr></table></figure>
+<p>该 zip 文件就是当 apiserver.log 大小超过 1MB 后，日志系统将之前的日志压缩成 zip 文件后的文件。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本小节通过具体实例讲解了如何配置、使用和管理日志。  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/24/spider/" rel="next" title="Hexo博客的安装部署及多电脑同步">
+                <i class="fa fa-chevron-left"></i> Hexo博客的安装部署及多电脑同步
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">franky</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#记录和管理-API-日志"><span class="nav-number">1.</span> <span class="nav-text">记录和管理 API 日志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本节核心内容"><span class="nav-number">1.1.</span> <span class="nav-text">本节核心内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志包介绍"><span class="nav-number">1.2.</span> <span class="nav-text">日志包介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化日志包"><span class="nav-number">1.3.</span> <span class="nav-text">初始化日志包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用日志包"><span class="nav-number">1.4.</span> <span class="nav-text">调用日志包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译并运行"><span class="nav-number">1.5.</span> <span class="nav-text">编译并运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理日志文件"><span class="nav-number">1.6.</span> <span class="nav-text">管理日志文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.7.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">franky</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
