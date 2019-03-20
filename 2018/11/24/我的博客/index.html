@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="验证码识别,python,cnn,tensorflow," />
+  <meta name="keywords" content="python,cnn,验证码识别,tensorflow," />
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="被执行人官网验证码识别  验证码来源于中国失信被执行人查询官网，仅供测试使用，如果需要验证码进行训练，可以与我私下联系 识别率达到96%，源码参考自github">
-<meta name="keywords" content="验证码识别,python,cnn,tensorflow">
+<meta name="keywords" content="python,cnn,验证码识别,tensorflow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="失信被执行人验证码识别">
 <meta property="og:url" content="http://yoursite.com/2018/11/24/我的博客/index.html">
@@ -276,6 +276,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/24/我的博客/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/11/24/我的博客/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -325,11 +335,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/验证码识别/" rel="tag"># 验证码识别</a>
-          
             <a href="/tags/python/" rel="tag"># python</a>
           
             <a href="/tags/cnn/" rel="tag"># cnn</a>
+          
+            <a href="/tags/验证码识别/" rel="tag"># 验证码识别</a>
           
             <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
           
@@ -381,6 +391,9 @@
 
           
 
+  
+    <div class="comments" id="comments">
+    </div>
   
 
 
@@ -656,6 +669,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'BTandSQFASdHxq4UPLPxW60a-gzGzoHsz# your leancloud application appid',
+        appKey: 'yvk2WNhd7fXccEnOIQYcO9d3',
+        placeholder: '留下你的脚印',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 

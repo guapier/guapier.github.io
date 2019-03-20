@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="python,cnn,captcha," />
+  <meta name="keywords" content="captcha,python,cnn," />
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="综合查询被执行人验证码破解采集了10w验证码样本，经过打码，形成数据集，然后利用cnn进行训练，得到模型，最后利用模型提供api接口。">
-<meta name="keywords" content="python,cnn,captcha">
+<meta name="keywords" content="captcha,python,cnn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="失信被执行人官网验证码演示">
 <meta property="og:url" content="http://yoursite.com/2019/02/14/captcha/index.html">
@@ -278,6 +278,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/14/captcha/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/14/captcha/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -323,11 +333,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/captcha/" rel="tag"># captcha</a>
+          
             <a href="/tags/python/" rel="tag"># python</a>
           
             <a href="/tags/cnn/" rel="tag"># cnn</a>
-          
-            <a href="/tags/captcha/" rel="tag"># captcha</a>
           
         </div>
       
@@ -381,6 +391,9 @@
 
           
 
+  
+    <div class="comments" id="comments">
+    </div>
   
 
 
@@ -656,6 +669,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'BTandSQFASdHxq4UPLPxW60a-gzGzoHsz# your leancloud application appid',
+        appKey: 'yvk2WNhd7fXccEnOIQYcO9d3',
+        placeholder: '留下你的脚印',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
