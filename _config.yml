@@ -93,6 +93,7 @@ live2d:
   mobile:
     show: true
 
+
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
