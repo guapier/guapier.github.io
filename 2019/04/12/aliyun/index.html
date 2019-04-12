@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="滑动验证码,浏览器特征,mitmdump," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基于webdriver破解阿里滑动云验证码 原理通过修改webdriver特征来避免浏览器检测通过mitmdump代理，进行js注入，达到修改浏览器特征">
+<meta name="keywords" content="滑动验证码,浏览器特征,mitmdump">
+<meta property="og:type" content="article">
+<meta property="og:title" content="aliyun滑动验证码破解">
+<meta property="og:url" content="http://yoursite.com/2019/04/12/aliyun/index.html">
+<meta property="og:site_name" content="瓜皮的个人博客">
+<meta property="og:description" content="基于webdriver破解阿里滑动云验证码 原理通过修改webdriver特征来避免浏览器检测通过mitmdump代理，进行js注入，达到修改浏览器特征">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-12T08:51:19.238Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="aliyun滑动验证码破解">
+<meta name="twitter:description" content="基于webdriver破解阿里滑动云验证码 原理通过修改webdriver特征来避免浏览器检测通过mitmdump代理，进行js注入，达到修改浏览器特征">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/12/aliyun/"/>
+
+
+
+
+
+  <title>aliyun滑动验证码破解 | 瓜皮的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">瓜皮的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/12/aliyun/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="franky">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="瓜皮的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">aliyun滑动验证码破解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-12T16:48:39+08:00">
+                2019-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/12/aliyun/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/04/12/aliyun/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="基于webdriver破解阿里滑动云验证码"><a href="#基于webdriver破解阿里滑动云验证码" class="headerlink" title="基于webdriver破解阿里滑动云验证码"></a>基于webdriver破解阿里滑动云验证码</h1><hr>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>通过修改webdriver特征来避免浏览器检测<br>通过mitmdump代理，进行js注入，达到修改浏览器特征</p>
+<a id="more"></a>
+<hr>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"># @Time    : 2019-04-12 10:32</span><br><span class="line"># @Author  : xuzy</span><br><span class="line"># @Email   : xuzy@zac.cn</span><br><span class="line"># @File    : indject_js_proxy.py</span><br><span class="line"># @Software: PyCharm</span><br><span class="line"># @Function:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">from mitmproxy import ctx</span><br><span class="line"></span><br><span class="line">injected_javascript = &apos;&apos;&apos;</span><br><span class="line">// overwrite the `languages` property to use a custom getter</span><br><span class="line">Object.defineProperty(navigator, &quot;languages&quot;, &#123;</span><br><span class="line">  get: function() &#123;</span><br><span class="line">    return [&quot;zh-CN&quot;,&quot;zh&quot;,&quot;zh-TW&quot;,&quot;en-US&quot;,&quot;en&quot;];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">// Overwrite the `plugins` property to use a custom getter.</span><br><span class="line">Object.defineProperty(navigator, &apos;plugins&apos;, &#123;</span><br><span class="line">  get: () =&gt; [1, 2, 3, 4, 5],</span><br><span class="line">&#125;);</span><br><span class="line">// Pass the Webdriver test</span><br><span class="line">Object.defineProperty(navigator, &apos;webdriver&apos;, &#123;</span><br><span class="line">  get: () =&gt; false,</span><br><span class="line">&#125;);</span><br><span class="line">// Pass the Chrome Test.</span><br><span class="line">// We can mock this in as much depth as we need for the test.</span><br><span class="line">window.navigator.chrome = &#123;</span><br><span class="line">  runtime: &#123;&#125;,</span><br><span class="line">  // etc.</span><br><span class="line">&#125;;</span><br><span class="line">// Pass the Permissions Test.</span><br><span class="line">const originalQuery = window.navigator.permissions.query;</span><br><span class="line">window.navigator.permissions.query = (parameters) =&gt; (</span><br><span class="line">  parameters.name === &apos;notifications&apos; ?</span><br><span class="line">    Promise.resolve(&#123; state: Notification.permission &#125;) :</span><br><span class="line">    originalQuery(parameters)</span><br><span class="line">);</span><br><span class="line">&apos;&apos;&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def response(flow):</span><br><span class="line">    # Only process 200 responses of HTML content.</span><br><span class="line">    if not flow.response.status_code == 200:</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">    # Inject a script tag containing the JavaScript.</span><br><span class="line">    html = flow.response.text</span><br><span class="line">    html = html.replace(&apos;&lt;head&gt;&apos;, &apos;&lt;head&gt;&lt;script&gt;%s&lt;/script&gt;&apos; % injected_javascript)</span><br><span class="line">    flow.response.text = str(html)</span><br><span class="line">    ctx.log.info(&apos;&gt;&gt;&gt;&gt; js代码插入成功 &lt;&lt;&lt;&lt;&apos;)</span><br><span class="line"></span><br><span class="line">    # 只要url链接以target开头，则将网页内容替换为目前网址</span><br><span class="line">    # target = &apos;https://target-url.com&apos;</span><br><span class="line">    # if flow.url.startswith(target):</span><br><span class="line">    #     flow.response.text = flow.url</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="demo-站酷滑动验证码"><a href="#demo-站酷滑动验证码" class="headerlink" title="demo 站酷滑动验证码"></a>demo 站酷滑动验证码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver</span><br><span class="line">from selenium.webdriver.support.wait import WebDriverWait</span><br><span class="line"># from selenium.webdriver.support import expected_conditions as EC</span><br><span class="line"># from selenium.webdriver.common.by import By</span><br><span class="line">from selenium.webdriver.chrome.options import Options</span><br><span class="line">from selenium.webdriver import ActionChains</span><br><span class="line"></span><br><span class="line">import time</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line"># 实例化一个启动参数对象</span><br><span class="line">chrome_options = Options()</span><br><span class="line"># 添加启动参数</span><br><span class="line">chrome_options.add_argument(&apos;--proxy-server=127.0.0.1:8090&apos;)</span><br><span class="line"># 将参数对象传入Chrome，则启动了一个设置了窗口大小的Chrome</span><br><span class="line">driver = webdriver.Chrome(chrome_options=chrome_options,executable_path=&apos;./chromedriver.exe&apos;)</span><br><span class="line">wait = WebDriverWait(driver, 20)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def get_track(distance):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    拿到移动轨迹，模仿人的滑动行为，先匀加速后匀减速</span><br><span class="line">    匀变速运动基本公式：</span><br><span class="line">    ①v=v0+at</span><br><span class="line">    ②s=v0t+(1/2)at²</span><br><span class="line">    ③v²-v0²=2as</span><br><span class="line"></span><br><span class="line">    :param distance: 需要移动的距离</span><br><span class="line">    :return: 存放每0.2秒移动的距离</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    # 初速度</span><br><span class="line">    v = 0</span><br><span class="line">    # 单位时间为0.2s来统计轨迹，轨迹即0.2内的位移</span><br><span class="line">    t = 0.1</span><br><span class="line">    # 位移/轨迹列表，列表内的一个元素代表0.2s的位移</span><br><span class="line">    tracks = []</span><br><span class="line">    # 当前的位移</span><br><span class="line">    current = 0</span><br><span class="line">    # 到达mid值开始减速</span><br><span class="line">    mid = distance * 4 / 5</span><br><span class="line"></span><br><span class="line">    distance += 10  # 先滑过一点，最后再反着滑动回来</span><br><span class="line"></span><br><span class="line">    while current &lt; distance:</span><br><span class="line">        if current &lt; mid:</span><br><span class="line">            # 加速度越小，单位时间的位移越小,模拟的轨迹就越多越详细</span><br><span class="line">            a = 2  # 加速运动</span><br><span class="line">        else:</span><br><span class="line">            a = -3  # 减速运动</span><br><span class="line"></span><br><span class="line">        # 初速度</span><br><span class="line">        v0 = v</span><br><span class="line">        # 0.2秒时间内的位移</span><br><span class="line">        s = v0 * t + 0.5 * a * (t ** 2)</span><br><span class="line">        # 当前的位置</span><br><span class="line">        current += s</span><br><span class="line">        # 添加到轨迹列表</span><br><span class="line">        tracks.append(round(s))</span><br><span class="line"></span><br><span class="line">        # 速度已经达到v,该速度作为下次的初速度</span><br><span class="line">        v = v0 + a * t</span><br><span class="line"></span><br><span class="line">    # 反着滑动到大概准确位置</span><br><span class="line">    for i in range(3):</span><br><span class="line">        tracks.append(-2)</span><br><span class="line">    for i in range(4):</span><br><span class="line">        tracks.append(-1)</span><br><span class="line">    return tracks</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def move_to_gap(tracks):</span><br><span class="line">    driver.get(&quot;https://passport.zcool.com.cn/regPhone.do?appId=1006&amp;cback=https://my.zcool.com.cn/focus/activity&quot;)</span><br><span class="line"></span><br><span class="line">    need_move_span = driver.find_element_by_xpath(&apos;//*[@id=&quot;nc_1_n1t&quot;]/span&apos;)</span><br><span class="line"></span><br><span class="line">    ActionChains(driver).click_and_hold(need_move_span).perform()</span><br><span class="line">    for x in tracks:</span><br><span class="line">        print(x)</span><br><span class="line">        ActionChains(driver).move_by_offset(xoffset=x, yoffset=random.randint(1, 3)).perform()</span><br><span class="line">    time.sleep(1)</span><br><span class="line">    ActionChains(driver).release().perform()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    move_to_gap(get_track(295))</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># action.click(reg_btn).perform() #单击某元素</span><br><span class="line"></span><br><span class="line"># driver.get(&quot;https://mp.dayu.com/&quot;)</span><br><span class="line"># 设置等待超时</span><br><span class="line"># wait = WebDriverWait(driver, 20)</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># reg_btn = wait.until(EC.presence_of_element_located((By.XPATH,&apos;//*[@id=&quot;header-navbar-collapses&quot;]/ul[2]/li[3]/a&apos;)))</span><br><span class="line">#</span><br><span class="line"># driver.refresh()</span><br><span class="line"># time.sleep(2)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/滑动验证码/" rel="tag"># 滑动验证码</a>
+          
+            <a href="/tags/浏览器特征/" rel="tag"># 浏览器特征</a>
+          
+            <a href="/tags/mitmdump/" rel="tag"># mitmdump</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/20/惠东之旅/" rel="next" title="惠东之旅">
+                <i class="fa fa-chevron-left"></i> 惠东之旅
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">franky</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基于webdriver破解阿里滑动云验证码"><span class="nav-number">1.</span> <span class="nav-text">基于webdriver破解阿里滑动云验证码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#demo-站酷滑动验证码"><span class="nav-number">4.</span> <span class="nav-text">demo 站酷滑动验证码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">franky</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'BTandSQFASdHxq4UPLPxW60a-gzGzoHsz',
+        appKey: 'yvk2WNhd7fXccEnOIQYcO9d3',
+        placeholder: '留下你的脚印',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
